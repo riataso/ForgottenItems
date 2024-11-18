@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4845A3192CEB858D00B51124 /* CheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4845A3182CEB858D00B51124 /* CheckItem.swift */; };
+		4845A31B2CEB957000B51124 /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4845A31A2CEB957000B51124 /* CheckList.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4845A2FB2CEA475000B51124 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +32,8 @@
 		4845A2EA2CEA474E00B51124 /* ForgottenItem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ForgottenItem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4845A2FA2CEA475000B51124 /* ForgottenItemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ForgottenItemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4845A3042CEA475000B51124 /* ForgottenItemUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ForgottenItemUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4845A3182CEB858D00B51124 /* CheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckItem.swift; sourceTree = "<group>"; };
+		4845A31A2CEB957000B51124 /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -79,6 +86,7 @@
 				4845A2FD2CEA475000B51124 /* ForgottenItemTests */,
 				4845A3072CEA475000B51124 /* ForgottenItemUITests */,
 				4845A2EB2CEA474E00B51124 /* Products */,
+				4845A3172CEB852600B51124 /* Entity */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +98,15 @@
 				4845A3042CEA475000B51124 /* ForgottenItemUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4845A3172CEB852600B51124 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				4845A3182CEB858D00B51124 /* CheckItem.swift */,
+				4845A31A2CEB957000B51124 /* CheckList.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +253,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4845A31B2CEB957000B51124 /* CheckList.swift in Sources */,
+				4845A3192CEB858D00B51124 /* CheckItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
