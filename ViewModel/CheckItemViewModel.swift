@@ -8,4 +8,9 @@ class CheckItemViewModel: ObservableObject {
         var checkItem: CheckItem = .init(id: UUID(), itemName: checkItemName, checked: false)
         checkItemList += [checkItem]
     }
+
+    func deleteCheckItem(at id: UUID) {
+        let newCheckItems = checkItemList.filter({ $0.id != id })
+        checkItemList = newCheckItems
+    }
 }

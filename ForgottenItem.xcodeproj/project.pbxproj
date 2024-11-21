@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4845A3192CEB858D00B51124 /* CheckItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4845A3182CEB858D00B51124 /* CheckItem.swift */; };
 		4845A31B2CEB957000B51124 /* CheckList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4845A31A2CEB957000B51124 /* CheckList.swift */; };
+		487C7CE32CEE33B000AFE9EB /* CheckItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C7CE22CEE33AF00AFE9EB /* CheckItemViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		4845A3042CEA475000B51124 /* ForgottenItemUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ForgottenItemUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4845A3182CEB858D00B51124 /* CheckItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckItem.swift; sourceTree = "<group>"; };
 		4845A31A2CEB957000B51124 /* CheckList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckList.swift; sourceTree = "<group>"; };
+		487C7CE22CEE33AF00AFE9EB /* CheckItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckItemViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -87,6 +89,7 @@
 				4845A3072CEA475000B51124 /* ForgottenItemUITests */,
 				4845A2EB2CEA474E00B51124 /* Products */,
 				4845A3172CEB852600B51124 /* Entity */,
+				487C7CE12CEE339000AFE9EB /* ViewModel */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,6 +110,14 @@
 				4845A31A2CEB957000B51124 /* CheckList.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		487C7CE12CEE339000AFE9EB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				487C7CE22CEE33AF00AFE9EB /* CheckItemViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,6 +266,7 @@
 			files = (
 				4845A31B2CEB957000B51124 /* CheckList.swift in Sources */,
 				4845A3192CEB858D00B51124 /* CheckItem.swift in Sources */,
+				487C7CE32CEE33B000AFE9EB /* CheckItemViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
