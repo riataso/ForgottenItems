@@ -1,16 +1,27 @@
 import Foundation
 
 class CheckItemViewModel: ObservableObject {
-    @Published var checkItemName: String = ""
-    var checkItemList: [CheckItem] = []
+    @Published var checkItemList: [CheckItem] = []
+    @Published var editItemId: UUID?  
 
     func createCheckItem() {
-        var checkItem: CheckItem = .init(id: UUID(), itemName: checkItemName, checked: false)
+        let checkItem: CheckItem = .init(id: UUID(), itemName: "", checked: false)
         checkItemList += [checkItem]
+        editItemId = checkItem.id
     }
 
-    func deleteCheckItem(at id: UUID) {
+    func deleteCheckItem(id: UUID) {
         let newCheckItems = checkItemList.filter({ $0.id != id })
         checkItemList = newCheckItems
+    }
+
+    func editCheckItem(id: UUID, itemName: String) {
+        if let index = checkItemList.firstIndex(where: { $0.id == id }) {
+            checkItemList[index].itemName = itemName
+        }
+    }
+
+    func editFinish() {
+        editItemId = nil
     }
 }
