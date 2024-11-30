@@ -11,7 +11,7 @@ import SwiftUI
 struct ForgottenItemApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ItemChecklistView()
         }
     }
 }
