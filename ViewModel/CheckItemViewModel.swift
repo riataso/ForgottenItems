@@ -23,6 +23,7 @@ class CheckItemViewModel: ObservableObject {
 
     func editFinish() {
         editItemId = nil
-        checkItemList.removeAll { $0.itemName.isEmpty }
+        checkItemList.removeAll { $0.itemName.trimmingCharacters(in: .whitespaces).isEmpty }
     }
+
 }
