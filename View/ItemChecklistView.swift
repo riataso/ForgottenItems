@@ -14,12 +14,14 @@ struct ItemChecklistView: View {
                                     get: { item.itemName },
                                     set: { viewModel.editCheckItem(id: item.id, itemName: $0) }
                                 ))
-                                .listRowBackground(Color.gray)
+                                .listRowBackground(Color.gray.opacity(0.5))
                             } else {
                                 HStack {
                                     Text(item.itemName)
                                     Toggle("",isOn: $item.checked)
                                 }
+                                .listRowBackground(item.checked ? Color.white : Color.gray.opacity(0.7))
+                                .animation(.easeInOut, value: item.checked)
                             }
                         }
                     }
