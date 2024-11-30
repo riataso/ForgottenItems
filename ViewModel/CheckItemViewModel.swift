@@ -2,10 +2,10 @@ import Foundation
 
 class CheckItemViewModel: ObservableObject {
     @Published var checkItemList: [CheckItem] = []
-    @Published var editItemId: UUID?  
+    @Published var editItemId: UUID?
 
     func createCheckItem() {
-        let checkItem: CheckItem = .init(id: UUID(), itemName: "", checked: false)
+        let checkItem: CheckItem = .init(id: UUID(), itemName: "", checked: true)
         checkItemList += [checkItem]
         editItemId = checkItem.id
     }
@@ -23,5 +23,6 @@ class CheckItemViewModel: ObservableObject {
 
     func editFinish() {
         editItemId = nil
+        checkItemList.removeAll { $0.itemName.isEmpty }
     }
 }

@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct ItemChecklistView: View {
-    @State var isChecked: Bool = false
-    @State var flag = false
     @StateObject var viewModel = CheckItemViewModel()
     var body: some View {
 
@@ -10,7 +8,7 @@ struct ItemChecklistView: View {
             HStack {
                 VStack{
                     List {
-                        ForEach(viewModel.checkItemList) { item in
+                        ForEach($viewModel.checkItemList) { $item in
                             if item.id == viewModel.editItemId {
                                 TextField("値を入力してください",text: Binding(
                                     get: { item.itemName },
@@ -18,7 +16,10 @@ struct ItemChecklistView: View {
                                 ))
                                 .listRowBackground(Color.gray)
                             } else {
-                                Text(item.itemName)
+                                HStack {
+                                    Text(item.itemName)
+                                    Toggle("",isOn: $item.checked)
+                                }
                             }
                         }
                     }
@@ -32,7 +33,7 @@ struct ItemChecklistView: View {
                         ToolbarItem(placement: .navigationBarTrailing){
                             Button(action: {
                                 viewModel.createCheckItem()
-                                    })
+                            })
                             {
                                 Image(systemName: "plus")
                                     .foregroundColor(.blue)
@@ -47,4 +48,5 @@ struct ItemChecklistView: View {
             }
         }
     }
+
 }
