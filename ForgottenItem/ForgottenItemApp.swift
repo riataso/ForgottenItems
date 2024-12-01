@@ -1,14 +1,10 @@
-//
-//  ForgottenItemApp.swift
-//  ForgottenItem
-//
-//  Created by 佐藤来 on 2024/11/18.
-//
-
 import SwiftUI
 
 @main
 struct ForgottenItemApp: App {
+
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
             ItemChecklistView()
