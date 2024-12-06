@@ -24,6 +24,7 @@ struct ItemChecklistView: View {
                                 .animation(.easeInOut, value: item.checked)
                             }
                         }
+                        .onDelete(perform: viewModel.rowRemove)
                     }
                     .toolbar {
                         ToolbarItem(placement: .principal) {
