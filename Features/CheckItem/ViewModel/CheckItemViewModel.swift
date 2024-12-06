@@ -5,14 +5,14 @@ class CheckItemViewModel: ObservableObject {
     @Published var editItemId: UUID?
 
     func createCheckItem() {
+        editFinish()
         let checkItem: CheckItem = .init(id: UUID(), itemName: "", checked: true)
         checkItemList += [checkItem]
         editItemId = checkItem.id
     }
 
-    func deleteCheckItem(id: UUID) {
-        let newCheckItems = checkItemList.filter({ $0.id != id })
-        checkItemList = newCheckItems
+    func rowRemove(offsets: IndexSet) {
+        checkItemList.remove(atOffsets: offsets)
     }
 
     func editCheckItem(id: UUID, itemName: String) {
