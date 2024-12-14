@@ -89,6 +89,7 @@ struct CreateListView: View {
                     } label: {
                         Text("追加")
                     }
+                    .disabled(viewModel.isButtonEnable)
                 }
             }
         }

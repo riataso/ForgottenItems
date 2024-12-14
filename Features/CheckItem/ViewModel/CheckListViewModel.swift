@@ -13,4 +13,8 @@ class CheckListViewModel: ObservableObject {
     func rowRemoveCheckList(offsets: IndexSet) {
         checkList.remove(atOffsets: offsets)
     }
+    //リスト作成用タイトル入力欄判定処理
+    var isButtonEnable: Bool {
+        listTitle.trimmingCharacters(in: .whitespaces) == ""
+    }
 }
