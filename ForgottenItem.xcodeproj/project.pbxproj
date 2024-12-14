@@ -14,6 +14,7 @@
 		48C1F0872CFC24850033BB9B /* NotificationPermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C1F0862CFC24850033BB9B /* NotificationPermissionManager.swift */; };
 		48C1F0892CFC7C600033BB9B /* NotificationSenderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C1F0882CFC7C600033BB9B /* NotificationSenderRepository.swift */; };
 		48C1F09D2D032C190033BB9B /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C1F09C2D032C190033BB9B /* CheckListViewModel.swift */; };
+		48C1F0BC2D07368D0033BB9B /* CheckCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C1F0BB2D07368D0033BB9B /* CheckCategoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		48C1F0862CFC24850033BB9B /* NotificationPermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionManager.swift; sourceTree = "<group>"; };
 		48C1F0882CFC7C600033BB9B /* NotificationSenderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSenderRepository.swift; sourceTree = "<group>"; };
 		48C1F09C2D032C190033BB9B /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
+		48C1F0BB2D07368D0033BB9B /* CheckCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCategoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				487C7D042CF355B900AFE9EB /* ItemChecklistView.swift */,
+				48C1F0BB2D07368D0033BB9B /* CheckCategoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				487C7D052CF355B900AFE9EB /* ItemChecklistView.swift in Sources */,
+				48C1F0BC2D07368D0033BB9B /* CheckCategoryView.swift in Sources */,
 				48C1F09D2D032C190033BB9B /* CheckListViewModel.swift in Sources */,
 				48C1F0892CFC7C600033BB9B /* NotificationSenderRepository.swift in Sources */,
 				4845A31B2CEB957000B51124 /* CheckList.swift in Sources */,

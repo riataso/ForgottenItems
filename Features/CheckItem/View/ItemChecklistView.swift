@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ItemChecklistView: View {
     @StateObject var viewModel = CheckItemViewModel()
+    @State var chekeListTitle: String
+
     var body: some View {
 
         NavigationStack(){
@@ -29,7 +31,7 @@ struct ItemChecklistView: View {
                     .toolbar {
                         ToolbarItem(placement: .principal) {
                             HStack {
-                                Text("タイトル")
+                                Text(chekeListTitle)
                                     .font(.headline)
                             }
                         }

@@ -7,7 +7,7 @@ struct ForgottenItemApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ItemChecklistView()
+            CheckCategoryView()
         }
     }
 }
