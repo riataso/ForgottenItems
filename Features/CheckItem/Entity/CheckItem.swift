@@ -1,6 +1,8 @@
 import Foundation
+import SwiftData
 
-struct CheckItem: Identifiable {
+@Model
+class CheckItem: Identifiable {
     var id: UUID
     var itemName: String
     var checked: Bool
