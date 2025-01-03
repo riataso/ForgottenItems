@@ -5,15 +5,16 @@ class CheckListViewModel: ObservableObject {
     @Published var checkList: [CheckList] = []
     @Published var listTitle: String = ""
     @Published var editCheckList: CheckList?
-    private let repository: CheckItemRepotitory
+    private let repository: CheckItemRepository
 
-    init(repository: CheckItemRepotitory) {
+    init(repository: CheckItemRepository) {
         self.repository = repository
     }
 
-    func createCheckItemList()  async {
+    func createCheckItemList() async {
         repository.createCheckList(listTitle: listTitle)
-        checkList = repository.fetchList()
+        clearInputTitle()
+        await getCheckList()
     }
 
     func getCheckList() async {
@@ -29,20 +30,22 @@ class CheckListViewModel: ObservableObject {
         guard let editCheckList else { return }
         await repository.editListName(id: editCheckList.id, title: listTitle)
         clearInputTitle()
+        await getCheckList()
     }
 
-    //入力用変数の初期化処理
+    // 入力用変数の初期化処理
     func clearInputTitle() {
         listTitle = ""
     }
-    //リスト作成用タイトル入力欄判定処理
+
+    // リスト作成用タイトル入力欄判定処理
     var isButtonEnable: Bool {
-        listTitle.trimmingCharacters(in: .whitespaces) == ""
+        listTitle.trimmingCharacters(in: .whitespaces).isEmpty
     }
 
-    //チェック項目編集用入力欄判定処理
+    // チェック項目編集用入力欄判定処理
     var isEditButtonEnable: Bool {
-        let editListName = editCheckList
-        return listTitle.trimmingCharacters(in: .whitespaces) == editListName?.title || listTitle.trimmingCharacters(in: .whitespaces) == ""
+        guard let editCheckList = editCheckList else { return true }
+        return listTitle.trimmingCharacters(in: .whitespaces) == editCheckList.title || listTitle.trimmingCharacters(in: .whitespaces).isEmpty
     }
 }

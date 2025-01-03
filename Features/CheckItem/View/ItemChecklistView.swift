@@ -1,19 +1,21 @@
 import SwiftUI
 
 struct ItemChecklistView: View {
-    @StateObject var viewModel = CheckItemViewModel(repository: CheckItemRepotitory())
-    @State var chekeListTitle: String
+    @StateObject var viewModel: CheckItemViewModel
     @State var createCheckItemView: Bool = false
     @State var editCheckItemView: Bool = false
 
-    var body: some View {
+    init(checkList: CheckList) {
+        _viewModel = StateObject(wrappedValue: CheckItemViewModel(repository: CheckItemRepository(), checkList: checkList))
+    }
 
-        NavigationStack(){
+    var body: some View {
+        NavigationStack {
             VStack {
                 List($viewModel.checkItemList) { $item in
                     HStack {
                         Text(item.itemName)
-                        Toggle("",isOn: $item.checked)
+                        Toggle("", isOn: $item.checked)
                             .onChange(of: item.checked) {
                                 Task {
                                     await viewModel.updateCheckStatus(for: item)
@@ -22,7 +24,7 @@ struct ItemChecklistView: View {
                     }
                     .listRowBackground(item.checked ? Color.white : Color.gray.opacity(0.7))
                     .animation(.easeInOut, value: item.checked)
-                    //編集画面に遷移
+                    // 編集画面に遷移
                     .onTapGesture {
                         viewModel.editItem = item
                         viewModel.inputItemName = item.itemName
@@ -33,11 +35,11 @@ struct ItemChecklistView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack {
-                        Text(chekeListTitle)
+                        Text(viewModel.checkListTitle)
                             .font(.headline)
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing){
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         createCheckItemView.toggle()
                     }) {
@@ -54,22 +56,22 @@ struct ItemChecklistView: View {
                 EditCheckItemView(viewModel: viewModel)
                     .presentationDragIndicator(.visible)
             }
-        }
-        .task {
-            await viewModel.getCheckItems()
+            .task {
+                await viewModel.getCheckItems()
+            }
         }
     }
 }
 
-//チェック項目作成ビュー
+// チェック項目作成ビュー
 struct CreateCheckItemView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel = CheckItemViewModel(repository: CheckItemRepotitory())
+    @ObservedObject var viewModel: CheckItemViewModel
 
     var body: some View {
         NavigationStack {
             List {
-                Section(header: Text("リスト名")) {
+                Section(header: Text("項目名")) {
                     TextField("持ち物チェック対象を入力", text: $viewModel.inputItemName)
                         .textFieldStyle(PlainTextFieldStyle())
                 }
@@ -102,11 +104,10 @@ struct CreateCheckItemView: View {
     }
 }
 
-//チェック項目編集ビュー
+// チェック項目編集ビュー
 struct EditCheckItemView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel = CheckItemViewModel(repository: CheckItemRepotitory())
-
+    @ObservedObject var viewModel: CheckItemViewModel
 
     var body: some View {
         NavigationStack {

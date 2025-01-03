@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct CheckCategoryView: View {
-    @StateObject var viewModel = CheckListViewModel(repository: CheckItemRepotitory())
+    @StateObject var viewModel = CheckListViewModel(repository: CheckItemRepository())
     @State var createCheckCategoryView: Bool = false
     @State private var showingAlert = false
     @State var editCheckListView: Bool = false
     let alertTitle: String = "警告"
 
     var body: some View {
-        NavigationStack(){
+        NavigationStack {
             List {
                 ForEach(viewModel.checkList) { checkItem in
-                    NavigationLink(destination: ItemChecklistView(chekeListTitle: checkItem.title)) {
+                    NavigationLink(destination: ItemChecklistView(checkList: checkItem)) {
                         Text(checkItem.title)
                     }
                     .contextMenu {
@@ -31,32 +31,32 @@ struct CheckCategoryView: View {
                         }
                     }
                 }
-                .alert(
-                    alertTitle,
-                    isPresented: $showingAlert
-                ) {
-                    Button(role: .cancel) {
-
-                    } label: {
-                        Text("キャンセル")
-                    }
-                    Button(role: .destructive) {
-                        Task {
-                            await viewModel.deleteCheckList()
-                        }
-                    } label: {
-                        Text("削除")
-                    }
-                } message: {
-                    Text("削除されると元に戻すことはできませんがよろしいですか？")
+            }
+            .alert(
+                alertTitle,
+                isPresented: $showingAlert
+            ) {
+                Button(role: .cancel) {
+                    
+                } label: {
+                    Text("キャンセル")
                 }
+                Button(role: .destructive) {
+                    Task {
+                        await viewModel.deleteCheckList()
+                    }
+                } label: {
+                    Text("削除")
+                }
+            } message: {
+                Text("削除されると元に戻すことはできませんがよろしいですか？")
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("持ち物チェックリスト")
                         .font(.headline)
                 }
-                //リスト追加用フォルダアイコン
+                // リスト追加用フォルダアイコン
                 ToolbarItem(placement: .confirmationAction) {
                     Button(action: {
                         createCheckCategoryView.toggle()
@@ -78,9 +78,9 @@ struct CheckCategoryView: View {
             }
         }
     }
-
 }
 
+// リスト作成ビュー
 struct CreateListView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: CheckListViewModel
@@ -123,6 +123,7 @@ struct CreateListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
+                        viewModel.clearInputTitle()
                         dismiss()
                     } label: {
                         Text("キャンセル")
@@ -178,21 +179,21 @@ struct TimePickerView: View {
     }
 }
 
-//リスト名編集用画面
+/// リスト名編集ビュー
 struct EditCheckListView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel = CheckListViewModel(repository: CheckItemRepotitory())
+    @ObservedObject var viewModel: CheckListViewModel
 
     var body: some View {
         NavigationStack {
             List {
-                Section(header: Text("項目名")) {
+                Section(header: Text("リスト名")) {
                     TextField("リスト名を入力", text: $viewModel.listTitle)
                         .textFieldStyle(PlainTextFieldStyle())
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            .navigationTitle("チェック項目を編集")
+            .navigationTitle("リストを編集")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
