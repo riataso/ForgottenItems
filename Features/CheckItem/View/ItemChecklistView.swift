@@ -115,7 +115,7 @@ struct EditCheckItemView: View {
                     TextField("持ち物チェック対象を入力", text: $viewModel.inputItemName)
                         .textFieldStyle(PlainTextFieldStyle())
                 }
-                Button() {
+                Button {
                     Task {
                         await viewModel.deleteCheckItem()
                         dismiss()
@@ -125,7 +125,6 @@ struct EditCheckItemView: View {
                         .foregroundColor(.red)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
-
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("チェック項目を編集")

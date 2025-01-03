@@ -14,7 +14,7 @@ class CheckItemViewModel: ObservableObject {
 
     //チェック項目の追加用処理
     func createCheckItem() async {
-        repository.create(itemName: inputItemName)
+        await repository.create(itemName: inputItemName)
         clearInputItemName()
         checkItemList = repository.fetchAll()
     }
@@ -39,7 +39,11 @@ class CheckItemViewModel: ObservableObject {
     //チェック項目の削除用処理
     func deleteCheckItem() async {
         guard let editItem else { return }
-        try? checkItemList =  await repository.delete(targetId: editItem.id)
+        do {
+            checkItemList = try await repository.delete(targetId: editItem.id)
+        } catch {
+            print("Failed to delete item: \(error)")
+        }
     }
 
     //入力用変数の初期化処理
