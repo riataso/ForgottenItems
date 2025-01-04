@@ -15,6 +15,7 @@
 		48C1F0892CFC7C600033BB9B /* NotificationSenderRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C1F0882CFC7C600033BB9B /* NotificationSenderRepository.swift */; };
 		48C1F09D2D032C190033BB9B /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C1F09C2D032C190033BB9B /* CheckListViewModel.swift */; };
 		48C1F0BC2D07368D0033BB9B /* CheckCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C1F0BB2D07368D0033BB9B /* CheckCategoryView.swift */; };
+		48C1F0E12D1728990033BB9B /* CheckItemRepotitory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C1F0E02D1728990033BB9B /* CheckItemRepotitory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		48C1F0882CFC7C600033BB9B /* NotificationSenderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSenderRepository.swift; sourceTree = "<group>"; };
 		48C1F09C2D032C190033BB9B /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
 		48C1F0BB2D07368D0033BB9B /* CheckCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCategoryView.swift; sourceTree = "<group>"; };
+		48C1F0E02D1728990033BB9B /* CheckItemRepotitory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckItemRepotitory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -142,6 +144,7 @@
 		48C1F0832CFBEFFC0033BB9B /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				48C1F0DD2D1728150033BB9B /* Repository */,
 				48C1F0852CFBF0B50033BB9B /* NotificationFlow */,
 				48C1F0842CFBF02D0033BB9B /* CheckItem */,
 			);
@@ -165,6 +168,14 @@
 				48C1F0882CFC7C600033BB9B /* NotificationSenderRepository.swift */,
 			);
 			path = NotificationFlow;
+			sourceTree = "<group>";
+		};
+		48C1F0DD2D1728150033BB9B /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				48C1F0E02D1728990033BB9B /* CheckItemRepotitory.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,6 +329,7 @@
 				4845A31B2CEB957000B51124 /* CheckList.swift in Sources */,
 				4845A3192CEB858D00B51124 /* CheckItem.swift in Sources */,
 				487C7CE32CEE33B000AFE9EB /* CheckItemViewModel.swift in Sources */,
+				48C1F0E12D1728990033BB9B /* CheckItemRepotitory.swift in Sources */,
 				48C1F0872CFC24850033BB9B /* NotificationPermissionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
