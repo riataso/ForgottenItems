@@ -18,6 +18,7 @@ struct CheckCategoryView: View {
                         Button {
                             viewModel.editCheckList = checkItem
                             viewModel.listTitle = checkItem.title
+                            viewModel.splitDateTime(editDate: checkItem.date)
                             editCheckListView.toggle()
                         } label: {
                             Text("名前を編集")
@@ -84,8 +85,7 @@ struct CheckCategoryView: View {
 struct CreateListView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: CheckListViewModel
-    @State private var selectedDate: Date = Date()
-    @State private var selectedTime: Date = Date()
+
 
     var body: some View {
         NavigationStack {
@@ -96,22 +96,22 @@ struct CreateListView: View {
                 }
                 //日付追加用カレンダー遷移リスト画面
                 Section(header: Text("日付")) {
-                    NavigationLink(destination: DatePickerView(selectedDate: $selectedDate)) {
+                    NavigationLink(destination: DatePickerView(selectedDate: $viewModel.selectedDate)) {
                         HStack {
                             Text("日付を選択")
                             Spacer()
-                            Text(selectedDate, style: .date)
+                            Text(viewModel.selectedDate, style: .date)
                                 .foregroundColor(.gray)
                         }
                     }
                 }
                 //時間追加用ホイール遷移リスト画面
                 Section(header: Text("時間")) {
-                    NavigationLink(destination: TimePickerView(selectedTime: $selectedTime)) {
+                    NavigationLink(destination: TimePickerView(selectedTime: $viewModel.selectedTime)) {
                         HStack {
                             Text("時間を選択")
                             Spacer()
-                            Text(selectedTime, style: .time)
+                            Text(viewModel.selectedTime, style: .time)
                                 .foregroundColor(.gray)
                         }
                     }
@@ -152,12 +152,12 @@ struct DatePickerView: View {
 
     var body: some View {
         VStack {
-            DatePicker("日付を選択", selection: $selectedDate, displayedComponents: .date)
+            DatePicker("日付を設定", selection: $selectedDate, displayedComponents: .date)
                 .datePickerStyle(GraphicalDatePickerStyle())
                 .padding()
         }
         .datePickerStyle(.graphical)
-        .navigationTitle("日付を選択")
+        .navigationTitle("日付を設定")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -169,12 +169,12 @@ struct TimePickerView: View {
 
     var body: some View {
         VStack {
-            DatePicker("時間を選択", selection: $selectedTime, displayedComponents: .hourAndMinute)
+            DatePicker("時間を設定", selection: $selectedTime, displayedComponents: .hourAndMinute)
                 .datePickerStyle(WheelDatePickerStyle())
                 .labelsHidden()
                 .padding()
         }
-        .navigationTitle("時間を選択")
+        .navigationTitle("時間を設定")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -190,6 +190,28 @@ struct EditCheckListView: View {
                 Section(header: Text("リスト名")) {
                     TextField("リスト名を入力", text: $viewModel.listTitle)
                         .textFieldStyle(PlainTextFieldStyle())
+                }
+                //日付追加用カレンダー遷移リスト画面
+                Section(header: Text("日付")) {
+                    NavigationLink(destination: DatePickerView(selectedDate: $viewModel.selectedDate)) {
+                        HStack {
+                            Text("日付を選択")
+                            Spacer()
+                            Text(viewModel.selectedDate, style: .date)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+                //時間追加用ホイール遷移リスト画面
+                Section(header: Text("時間")) {
+                    NavigationLink(destination: TimePickerView(selectedTime: $viewModel.selectedTime)) {
+                        HStack {
+                            Text("時間を選択")
+                            Spacer()
+                            Text(viewModel.selectedTime, style: .time)
+                                .foregroundColor(.gray)
+                        }
+                    }
                 }
             }
             .listStyle(InsetGroupedListStyle())
@@ -207,7 +229,7 @@ struct EditCheckListView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         Task {
-                            await viewModel.editCheckListName()
+                            await viewModel.editCheckList()
                             dismiss()
                         }
                     } label: {

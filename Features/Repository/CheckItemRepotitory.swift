@@ -70,8 +70,8 @@ final class CheckItemRepository {
 //チェックリスト周りの処理を拡張によって分割
 extension CheckItemRepository {
     // チェックリストの作成用処理
-    func createCheckList(listTitle: String) {
-        let checkList = CheckList(id: UUID(), title: listTitle)
+    func createCheckList(listTitle: String,date: Date) {
+        let checkList = CheckList(id: UUID(), title: listTitle, date: date, isEnabled: true)
         modelContainer.mainContext.insert(checkList)
         do {
             try modelContainer.mainContext.save()
@@ -113,10 +113,11 @@ extension CheckItemRepository {
     }
 
     // チェックリストのリスト名編集用処理
-    func editListName(id: UUID, title: String) async {
+    func editListName(id: UUID, updateTitle: String, updateAlarmDate: Date) async {
         let descriptor = FetchDescriptor<CheckList>(predicate: #Predicate { $0.id == id })
-        guard let editListName = (try? modelContainer.mainContext.fetch(descriptor))?.first else { return }
-        editListName.title = title
+        guard let editList = (try? modelContainer.mainContext.fetch(descriptor))?.first else { return }
+        editList.title = updateTitle
+        editList.date = updateAlarmDate
         do {
             try modelContainer.mainContext.save()
         } catch {
