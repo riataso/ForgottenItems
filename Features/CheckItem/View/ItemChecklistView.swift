@@ -1,37 +1,54 @@
 import SwiftUI
 
 struct ItemChecklistView: View {
-    @StateObject var viewModel: CheckItemViewModel
+    @State var viewModel: CheckItemViewModel
     @State var createCheckItemView: Bool = false
     @State var editCheckItemView: Bool = false
 
     init(checkList: CheckList) {
-        _viewModel = StateObject(wrappedValue: CheckItemViewModel(repository: CheckItemRepository(), checkList: checkList))
+        _viewModel = State(wrappedValue: CheckItemViewModel(repository: CheckItemRepository(), checkList: checkList))
     }
 
     var body: some View {
         NavigationStack {
             VStack {
                 List($viewModel.checkItemList) { $item in
-                    HStack {
+                    HStack(spacing: 16) {
+                        // チェックボックスイメージ（ボタンを削除）
+                        Image(systemName: item.checked ? "checkmark.circle.fill" : "circle")
+                            .font(.system(size: 24))
+                            .foregroundColor(item.checked ?  Color("CheckIconColor") : .gray)
+                        // テキスト
                         Text(item.itemName)
-                        Toggle("", isOn: $item.checked)
-                            .onChange(of: item.checked) {
-                                Task {
-                                    await viewModel.updateCheckStatus(for: item)
-                                }
-                            }
+                            .font(.body)
+                            .foregroundColor(item.checked ? .secondary : .primary)
+                            .strikethrough(item.checked, color: .secondary)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+
+                        Spacer()
+
+                        // 右側の矢印イメージ（ボタンを削除）
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
                     }
-                    .listRowBackground(item.checked ? Color.white : Color.gray.opacity(0.7))
-                    .animation(.easeInOut, value: item.checked)
-                    // 編集画面に遷移
+                    .padding(.vertical, 10)
+                    .contentShape(Rectangle())
+                    // HStack全体のタップジェスチャー
                     .onTapGesture {
                         viewModel.editItem = item
                         viewModel.inputItemName = item.itemName
+                        viewModel.updateStatus = item.checked
                         editCheckItemView.toggle()
                     }
+                    .background(
+                        Color(UIColor.secondarySystemGroupedBackground)
+                    )
+                    .cornerRadius(8)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
             }
+            .listStyle(InsetGroupedListStyle())
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack {
@@ -44,7 +61,6 @@ struct ItemChecklistView: View {
                         createCheckItemView.toggle()
                     }) {
                         Image(systemName: "plus")
-                            .foregroundColor(.blue)
                     }
                 }
             }
@@ -66,7 +82,7 @@ struct ItemChecklistView: View {
 // チェック項目作成ビュー
 struct CreateCheckItemView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: CheckItemViewModel
+    @State var viewModel: CheckItemViewModel
 
     var body: some View {
         NavigationStack {
@@ -96,6 +112,7 @@ struct CreateCheckItemView: View {
                         }
                     } label: {
                         Text("追加")
+                            .foregroundColor(viewModel.isButtonEnable ? .gray : .accentColor)
                     }
                     .disabled(viewModel.isButtonEnable)
                 }
@@ -107,7 +124,7 @@ struct CreateCheckItemView: View {
 // チェック項目編集ビュー
 struct EditCheckItemView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: CheckItemViewModel
+    @State var viewModel: CheckItemViewModel
 
     var body: some View {
         NavigationStack {
@@ -115,6 +132,16 @@ struct EditCheckItemView: View {
                 Section(header: Text("項目名")) {
                     TextField("持ち物チェック対象を入力", text: $viewModel.inputItemName)
                         .textFieldStyle(PlainTextFieldStyle())
+                }
+                Button {
+                    Task {
+                        await viewModel.updateCheckStatus(for: viewModel.editItem!)
+                        dismiss()
+                        viewModel.clearInputItemName()
+                    }
+                } label: {
+                    Text(viewModel.editItem?.checked == true ? "チェック項目を未チェックにする" : "チェック項目をチェック済みにする")
+                            .frame(maxWidth: .infinity, alignment: .center)
                 }
                 Button {
                     Task {
@@ -137,6 +164,7 @@ struct EditCheckItemView: View {
                         dismiss()
                     } label: {
                         Text("キャンセル")
+                        
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
