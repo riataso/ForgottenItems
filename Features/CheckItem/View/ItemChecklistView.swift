@@ -13,25 +13,42 @@ struct ItemChecklistView: View {
         NavigationStack {
             VStack {
                 List($viewModel.checkItemList) { $item in
-                    HStack {
+                    HStack(spacing: 16) {
+                        // チェックボックスイメージ（ボタンを削除）
+                        Image(systemName: item.checked ? "checkmark.circle.fill" : "circle")
+                            .font(.system(size: 24))
+                            .foregroundColor(item.checked ? Color("AppPrimaryColor") : .gray)
+                        // テキスト
                         Text(item.itemName)
-                        Toggle("", isOn: $item.checked)
-                            .onChange(of: item.checked) {
-                                Task {
-                                    await viewModel.updateCheckStatus(for: item)
-                                }
-                            }
+                            .font(.body)
+                            .foregroundColor(item.checked ? .secondary : .primary)
+                            .strikethrough(item.checked, color: .secondary)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+
+                        Spacer()
+
+                        // 右側の矢印イメージ（ボタンを削除）
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
                     }
-                    .listRowBackground(item.checked ? Color.white : Color.gray.opacity(0.7))
-                    .animation(.easeInOut, value: item.checked)
-                    // 編集画面に遷移
+                    .padding(.vertical, 10)
+                    .contentShape(Rectangle())
+                    // HStack全体のタップジェスチャー
                     .onTapGesture {
                         viewModel.editItem = item
                         viewModel.inputItemName = item.itemName
+                        viewModel.updateStatus = item.checked
                         editCheckItemView.toggle()
                     }
+                    .background(
+                        Color(UIColor.secondarySystemGroupedBackground)
+                    )
+                    .cornerRadius(8)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
             }
+            .listStyle(InsetGroupedListStyle())
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     HStack {
@@ -44,7 +61,7 @@ struct ItemChecklistView: View {
                         createCheckItemView.toggle()
                     }) {
                         Image(systemName: "plus")
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color("AppPrimaryColor"))
                     }
                 }
             }
@@ -86,6 +103,7 @@ struct CreateCheckItemView: View {
                         dismiss()
                     } label: {
                         Text("キャンセル")
+                            .foregroundColor(Color("AppPrimaryColor"))
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -96,6 +114,7 @@ struct CreateCheckItemView: View {
                         }
                     } label: {
                         Text("追加")
+                            .foregroundColor(viewModel.isButtonEnable ? .gray : Color("AppPrimaryColor"))
                     }
                     .disabled(viewModel.isButtonEnable)
                 }
@@ -118,6 +137,17 @@ struct EditCheckItemView: View {
                 }
                 Button {
                     Task {
+                        await viewModel.updateCheckStatus(for: viewModel.editItem!)
+                        dismiss()
+                        viewModel.clearInputItemName()
+                    }
+                } label: {
+                    Text(viewModel.editItem?.checked == true ? "チェック項目を未チェックにする" : "チェック項目をチェック済みにする")
+                            .foregroundColor(Color("AppPrimaryColor"))
+                            .frame(maxWidth: .infinity, alignment: .center)
+                }
+                Button {
+                    Task {
                         await viewModel.deleteCheckItem()
                         dismiss()
                     }
@@ -137,6 +167,7 @@ struct EditCheckItemView: View {
                         dismiss()
                     } label: {
                         Text("キャンセル")
+                        
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {

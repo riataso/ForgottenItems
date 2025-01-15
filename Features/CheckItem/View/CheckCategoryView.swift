@@ -63,6 +63,7 @@ struct CheckCategoryView: View {
                         createCheckCategoryView.toggle()
                     }) {
                         Image(systemName: "folder.badge.plus")
+                            .tint(Color("AppPrimaryColor"))
                     }
                 }
             }
@@ -142,6 +143,7 @@ struct CreateListView: View {
                 }
             }
         }
+        .tint(Color("PrimaryColor"))
     }
 }
 
@@ -235,7 +237,7 @@ struct EditCheckListView: View {
                     } label: {
                         Text("保存")
                     }
-                    .disabled(viewModel.isEditButtonEnable)
+                    .disabled(viewModel.isEditButtonDisabled)
                 }
             }
         }
