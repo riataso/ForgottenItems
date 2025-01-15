@@ -83,7 +83,7 @@ class CheckListViewModel {
         return combinedDate
     }
 
-    // 入力用変数の初期化処理
+    /// 入力用変数の初期化処理
     func clearInputTitle() {
         listTitle = ""
     }

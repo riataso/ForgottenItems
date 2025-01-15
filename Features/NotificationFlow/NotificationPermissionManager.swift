@@ -2,12 +2,12 @@ import Foundation
 import UIKit
 
 class AppDelegate: NSObject, UIApplicationDelegate,UNUserNotificationCenterDelegate {
-
+    
     /// アプリ起動時の処理
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-
+        
         print("___application:didFinishLaunchingWithOptions")
-
+        
         // Push通知許諾処理
         let center = UNUserNotificationCenter.current()
         center.delegate = self
