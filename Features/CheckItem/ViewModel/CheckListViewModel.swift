@@ -1,12 +1,13 @@
 import Foundation
 
 @MainActor
-class CheckListViewModel: ObservableObject {
-    @Published var checkList: [CheckList] = []
-    @Published var listTitle: String = ""
-    @Published var editCheckList: CheckList?
-    @Published var selectedDate: Date = Date()
-    @Published var selectedTime: Date = Date()
+@Observable
+class CheckListViewModel {
+    var checkList: [CheckList] = []
+    var listTitle: String = ""
+    var editCheckList: CheckList?
+    var selectedDate: Date = Date()
+    var selectedTime: Date = Date()
     private let repository: CheckItemRepository
 
 

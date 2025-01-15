@@ -2,12 +2,13 @@ import Foundation
 import SwiftData
 
 @MainActor
-class CheckItemViewModel: ObservableObject {
-    @Published var checkItemList: [CheckItem] = []
-    @Published var inputItemName = ""
-    @Published var editItem: CheckItem?
-    @Published var updateStatus = false
-    @Published var checkList: CheckList
+@Observable
+class CheckItemViewModel {
+    var checkItemList: [CheckItem] = []
+    var inputItemName = ""
+    var editItem: CheckItem?
+    var updateStatus = false
+    var checkList: CheckList
     private let repository: CheckItemRepository
     var checkListID: UUID
     var checkListTitle: String

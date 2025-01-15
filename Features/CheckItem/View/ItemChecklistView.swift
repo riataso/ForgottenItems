@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct ItemChecklistView: View {
-    @StateObject var viewModel: CheckItemViewModel
+    @State var viewModel: CheckItemViewModel
     @State var createCheckItemView: Bool = false
     @State var editCheckItemView: Bool = false
 
     init(checkList: CheckList) {
-        _viewModel = StateObject(wrappedValue: CheckItemViewModel(repository: CheckItemRepository(), checkList: checkList))
+        _viewModel = State(wrappedValue: CheckItemViewModel(repository: CheckItemRepository(), checkList: checkList))
     }
 
     var body: some View {
@@ -83,7 +83,7 @@ struct ItemChecklistView: View {
 // チェック項目作成ビュー
 struct CreateCheckItemView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: CheckItemViewModel
+    @State var viewModel: CheckItemViewModel
 
     var body: some View {
         NavigationStack {
@@ -126,7 +126,7 @@ struct CreateCheckItemView: View {
 // チェック項目編集ビュー
 struct EditCheckItemView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: CheckItemViewModel
+    @State var viewModel: CheckItemViewModel
 
     var body: some View {
         NavigationStack {

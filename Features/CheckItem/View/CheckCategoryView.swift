@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CheckCategoryView: View {
-    @StateObject var viewModel = CheckListViewModel(repository: CheckItemRepository())
+    @State var viewModel = CheckListViewModel(repository: CheckItemRepository())
     @State var createCheckCategoryView: Bool = false
     @State private var showingAlert = false
     @State var editCheckListView: Bool = false
@@ -85,7 +85,7 @@ struct CheckCategoryView: View {
 // リスト作成ビュー
 struct CreateListView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: CheckListViewModel
+    @State var viewModel: CheckListViewModel
 
 
     var body: some View {
@@ -184,7 +184,7 @@ struct TimePickerView: View {
 /// リスト名編集ビュー
 struct EditCheckListView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var viewModel: CheckListViewModel
+    @State var viewModel: CheckListViewModel
 
     var body: some View {
         NavigationStack {
