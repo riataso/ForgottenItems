@@ -63,7 +63,6 @@ struct CheckCategoryView: View {
                         createCheckCategoryView.toggle()
                     }) {
                         Image(systemName: "folder.badge.plus")
-                            .tint(Color("AppPrimaryColor"))
                     }
                 }
             }
@@ -143,7 +142,6 @@ struct CreateListView: View {
                 }
             }
         }
-        .tint(Color("PrimaryColor"))
     }
 }
 

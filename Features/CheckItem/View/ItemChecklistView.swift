@@ -17,7 +17,7 @@ struct ItemChecklistView: View {
                         // チェックボックスイメージ（ボタンを削除）
                         Image(systemName: item.checked ? "checkmark.circle.fill" : "circle")
                             .font(.system(size: 24))
-                            .foregroundColor(item.checked ? Color("AppPrimaryColor") : .gray)
+                            .foregroundColor(item.checked ?  Color("CheckIconColor") : .gray)
                         // テキスト
                         Text(item.itemName)
                             .font(.body)
@@ -61,7 +61,6 @@ struct ItemChecklistView: View {
                         createCheckItemView.toggle()
                     }) {
                         Image(systemName: "plus")
-                            .foregroundColor(Color("AppPrimaryColor"))
                     }
                 }
             }
@@ -103,7 +102,6 @@ struct CreateCheckItemView: View {
                         dismiss()
                     } label: {
                         Text("キャンセル")
-                            .foregroundColor(Color("AppPrimaryColor"))
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -114,7 +112,7 @@ struct CreateCheckItemView: View {
                         }
                     } label: {
                         Text("追加")
-                            .foregroundColor(viewModel.isButtonEnable ? .gray : Color("AppPrimaryColor"))
+                            .foregroundColor(viewModel.isButtonEnable ? .gray : .accentColor)
                     }
                     .disabled(viewModel.isButtonEnable)
                 }
@@ -143,7 +141,6 @@ struct EditCheckItemView: View {
                     }
                 } label: {
                     Text(viewModel.editItem?.checked == true ? "チェック項目を未チェックにする" : "チェック項目をチェック済みにする")
-                            .foregroundColor(Color("AppPrimaryColor"))
                             .frame(maxWidth: .infinity, alignment: .center)
                 }
                 Button {
