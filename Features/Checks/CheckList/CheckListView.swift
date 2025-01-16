@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CheckCategoryView: View {
+struct CheckListView: View {
     @State var viewModel = CheckListViewModel(repository: CheckItemRepository())
     @State var createCheckCategoryView: Bool = false
     @State private var showingAlert = false
@@ -11,7 +11,7 @@ struct CheckCategoryView: View {
         NavigationStack {
             List {
                 ForEach(viewModel.checkList) { checkItem in
-                    NavigationLink(destination: ItemChecklistView(checkList: checkItem)) {
+                    NavigationLink(destination: CheckItemView(checkList: checkItem)) {
                         Text(checkItem.title)
                     }
                     .contextMenu {
@@ -21,7 +21,7 @@ struct CheckCategoryView: View {
                             viewModel.splitDateTime(editDate: checkItem.date)
                             editCheckListView.toggle()
                         } label: {
-                            Text("名前を編集")
+                            Text("リストを編集")
                         }
 
                         Button(role: .destructive) {
@@ -85,7 +85,6 @@ struct CheckCategoryView: View {
 struct CreateListView: View {
     @Environment(\.dismiss) var dismiss
     @State var viewModel: CheckListViewModel
-
 
     var body: some View {
         NavigationStack {

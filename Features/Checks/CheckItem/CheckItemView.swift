@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ItemChecklistView: View {
+struct CheckItemView: View {
     @State var viewModel: CheckItemViewModel
     @State var createCheckItemView: Bool = false
     @State var editCheckItemView: Bool = false
@@ -141,7 +141,7 @@ struct EditCheckItemView: View {
                     }
                 } label: {
                     Text(viewModel.editItem?.checked == true ? "チェック項目を未チェックにする" : "チェック項目をチェック済みにする")
-                            .frame(maxWidth: .infinity, alignment: .center)
+                        .frame(maxWidth: .infinity, alignment: .center)
                 }
                 Button {
                     Task {
@@ -149,7 +149,7 @@ struct EditCheckItemView: View {
                         dismiss()
                     }
                 } label: {
-                     Text("チェック項目を削除")
+                    Text("チェック項目を削除")
                         .foregroundColor(.red)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
@@ -164,7 +164,7 @@ struct EditCheckItemView: View {
                         dismiss()
                     } label: {
                         Text("キャンセル")
-                        
+
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {

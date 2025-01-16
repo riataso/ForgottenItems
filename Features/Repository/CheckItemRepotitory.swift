@@ -18,7 +18,7 @@ final class CheckItemRepository {
         let checkItem = CheckItem(id: UUID(), itemName: itemName, checked: false, listID: listID)
         modelContainer.mainContext.insert(checkItem)
         do {
-            try modelContainer.mainContext.save() // 永続化
+            try modelContainer.mainContext.save()
         } catch {
             print("Failed to create item: \(error)")
         }
@@ -68,7 +68,7 @@ final class CheckItemRepository {
 
 }
 
-///チェックリスト周りの処理を拡張によって分割
+///　チェックリスト周りの処理を拡張によって分割
 extension CheckItemRepository {
     /// チェックリストの作成用処理
     func createCheckList(listTitle: String,date: Date) -> UUID? {

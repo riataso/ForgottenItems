@@ -44,8 +44,8 @@ class CheckItemViewModel {
             await repository.editListStatus(id: item.listID, newAlarmStatus: false)
             // 通知をキャンセル
             NotificationSender.shared.cancelNotification(identifier: item.listID)
-            
-        // チェックリストのアラームステータスがFalseの場合
+
+            // チェックリストのアラームステータスがFalseの場合
         } else if !checkList.isEditingAlarm {
             print("ステータス変更の処理が呼び出されました。")
             // チェックリストのアラームステータスをTrueにする
@@ -69,7 +69,7 @@ class CheckItemViewModel {
         checkItemList = repository.fetchAll(for: checkListID)
     }
 
-    // チェック項目の削除用処理
+    /// チェック項目の削除用処理
     func deleteCheckItem() async {
         guard let editItem else { return }
         do {
