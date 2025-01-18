@@ -61,7 +61,7 @@ class CheckListViewModel {
             clearInputTitle()
             await getCheckList()
             // 通知を更新
-            NotificationSender.shared.updateNotification(notificationDate: combinedDate, identifier: editCheckList.id, listTitle: listTitle)
+            NotificationSender.shared.updateNotification(notificationDate: combinedDate, identifier: editCheckList.id, listTitle: editCheckList.title)
         } catch {
             // エラーハンドリング
             print("エラーが発生しました: \(error.localizedDescription)")
