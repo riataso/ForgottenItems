@@ -74,6 +74,7 @@ class CheckItemViewModel {
         guard let editItem else { return }
         do {
             try await repository.delete(targetId: editItem.id)
+            clearInputItemName()
             await getCheckItems()
         } catch {
             print("Failed to delete item: \(error)")

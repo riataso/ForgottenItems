@@ -5,6 +5,7 @@ struct CheckListView: View {
     @State var createCheckCategoryView: Bool = false
     @State private var showingAlert = false
     @State var editCheckListView: Bool = false
+    @State var creditView: Bool = false
     let alertTitle: String = "警告"
 
     var body: some View {
@@ -53,6 +54,13 @@ struct CheckListView: View {
                 Text("削除されると元に戻すことはできませんがよろしいですか？")
             }
             .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    Button(action: {
+                        creditView.toggle()
+                    }) {
+                        Image(systemName: "info.circle.fill")
+                    }
+                }
                 ToolbarItem(placement: .principal) {
                     Text("持ち物チェックリスト")
                         .font(.headline)
@@ -72,6 +80,10 @@ struct CheckListView: View {
             }
             .sheet(isPresented: $editCheckListView) {
                 EditCheckListView(viewModel: viewModel)
+                    .presentationDragIndicator(.visible)
+            }
+            .sheet(isPresented: $creditView) {
+                CreditView()
                     .presentationDragIndicator(.visible)
             }
             .task {
@@ -238,5 +250,96 @@ struct EditCheckListView: View {
                 }
             }
         }
+    }
+}
+
+struct CreditView: View {
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        NavigationView {
+            List {
+                // 開発者情報へのリンク
+                NavigationLink(destination: DeveloperDetailView()) {
+                    Text("開発者情報")
+                }
+                // LICENSEへのリンク
+                NavigationLink(destination: LicenseDetailView()) {
+                    Text("LICENSE")
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("キャンセル")
+                    }
+                }
+            }
+            .navigationTitle("クレジット情報")
+            .navigationBarTitleDisplayMode(.inline) // タイトル表示モードを統一
+        }
+    }
+}
+
+struct DeveloperDetailView: View {
+    var body: some View {
+        List {
+            // 開発者情報のセクション
+            Section(header: Text("開発者")) {
+                HStack {
+                    Text("名前")
+                    Spacer()
+                    Text("riataso")
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Text("バージョン")
+                    Spacer()
+                    Text("1.0.0")
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
+        .listStyle(GroupedListStyle())
+        .navigationTitle("開発者情報")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+
+
+
+struct LicenseDetailView: View {
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("ライセンスの詳細情報を以下に記載します。")
+                    .padding([.leading, .trailing, .top])
+
+                Text("ライセンス情報:")
+                    .font(.headline)
+                    .padding(.horizontal)
+
+                // クレジット情報をVStackで見やすく表示
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Icons made by")
+
+                    Link("フリーピック", destination: URL(string: "https://www.flaticon.com/ authors/freepik ")!)
+                        .foregroundColor(.blue)
+                        .underline()
+
+                    Text("from")
+
+                    Link("www.flaticon.com", destination: URL(string: "https://www.flaticon.com/")!)
+                        .foregroundColor(.blue)
+                        .underline()
+                }
+                .padding()
+            }
+        }
+        .navigationTitle("ライセンス情報")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
